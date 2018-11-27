@@ -7,11 +7,12 @@ import time
 import json
 from sipp_textedit import TextWindow
 from LineeditValidate import QLineEditPort, QLineEditIP, QLineEditFile, QLineEditStub
+from multiprocessing import freeze_support
 
-answer_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe -r 1 -rp 1 -sf C:\\sipp\\answer.xml -i [172.17.125.12] -p 5090  -default_behaviors -bye"
-#call_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe -r 1 -rp 1 -sf C:\\sipp\\answer.xml -i [172.17.125.12] -p 5080  -default_behaviors -bye"
-#answer_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe -r 1 -rp 1 -sf C:\\sipp\\answer.xml -i [192.168.43.25] -p 5070  -default_behaviors -bye"
-call_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe 172.17.125.126 -rp 1 -r 100 -l 892 -sf C:\\sipp\\calling_dSec.xml -i [172.17.125.12] -p 5070  -trace_err  -default_behaviors -bye"
+# answer_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe -r 1 -rp 1 -sf C:\\sipp\\answer.xml -i [172.17.125.12] -p 5090  -default_behaviors -bye"
+# call_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe -r 1 -rp 1 -sf C:\\sipp\\answer.xml -i [172.17.125.12] -p 5080  -default_behaviors -bye"
+# answer_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe -r 1 -rp 1 -sf C:\\sipp\\answer.xml -i [192.168.43.25] -p 5070  -default_behaviors -bye"
+# call_command = "d:\\cgwin-64\\Sipp_3.2\\sipp.exe 172.17.125.126 -rp 1 -r 100 -l 892 -sf C:\\sipp\\calling_dSec.xml -i [172.17.125.12] -p 5070  -trace_err  -default_behaviors -bye"
 
 class MngWindow(QMainWindow):
     def __init__(self):
@@ -20,7 +21,7 @@ class MngWindow(QMainWindow):
         self.lableToTextMap = {}
         layout = QGridLayout()
         
-        #general configuration
+        # general configuration
         generalBox = QGroupBox("General Configuration")
         generalBox.setCheckable(False)
         generalLayout=QGridLayout()
@@ -144,9 +145,6 @@ class MngWindow(QMainWindow):
         layout.addWidget(callBox,3,0)
         layout.addWidget(actionBox,4,0)
 
-        #layout.addWidget(self.button, 1, 0) 
-        #layout.addWidget(self.buttonEnd, 1, 1)  
-
         self.widget = QWidget()
         self.widget.setLayout(layout)
         self.setCentralWidget(self.widget)
@@ -231,8 +229,10 @@ class MngWindow(QMainWindow):
         fileLineEdit.setText(
             str(QFileDialog.getOpenFileName(self, "Select File",None,suffix)[0]))
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    freeze_support()
     screen = MngWindow()
     screen.show()
     sys.exit(app.exec_())
